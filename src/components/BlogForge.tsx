@@ -99,70 +99,85 @@ Format your response EXACTLY like this:
 }
 
 function exploratorPrompt(q: string, draft: string) {
-  return `You are REX EXPLORATOR of the BlogForge Council — an intelligence scout. Use web search to find REAL, current sources for this blog post topic.
+  return `You are REX EXPLORATOR of the BlogForge Council — an intelligence scout. Today is March 2026. Use web search to find the MOST CURRENT sources available — 2026 data only.
 
 Topic: "${q}"
 Draft summary: ${draft.slice(0, 400)}
 
+CRITICAL RULES — STRICTLY ENFORCED:
+- You are searching in 2026. Reject ANY source, stat, or study older than mid-2025.
+- Search explicitly for "${q} 2026" and "${q} latest 2026" to surface current results.
+- If you find a stat from 2024 or earlier, it is OUTDATED — do not use it. Search for the 2025/2026 version.
+- Prioritise: breaking news (last 90 days), 2026 industry reports, 2026 surveys, recent earnings calls.
+
 Search the web to find:
-1. 3–5 authoritative, real sources (major publications, research papers, .gov/.edu, industry leaders) that directly support this topic — include actual URLs
-2. 2–3 recent statistics or data points with their sources
-3. What competing articles exist and their angles
-4. Any recent news or developments in the last 12 months
+1. 3–5 authoritative sources published in 2026 (or Q3/Q4 2025 as a last resort)
+2. The most recent statistics with confirmed 2025–2026 publication dates
+3. Any 2026 industry reports, surveys, or analyst forecasts on this topic
+4. Latest news and developments from the past 90 days
+5. Top-ranking articles RIGHT NOW and the gaps we can beat them on
 
 Format your response EXACTLY like this:
 
-[NARRATIVE]: (2 sentences in character — describe what you found on the web)
+[NARRATIVE]: (2 sentences in character — describe the 2026 intelligence you uncovered)
 
 [TECHNICAL]:
-## 🌐 Live Sources Found
-1. [Title](URL) — Publication | Key finding | Date
-2. [Title](URL) — Publication | Key finding | Date
-3. [Title](URL) — Publication | Key finding | Date
+## 🌐 Live Sources Found (2025–2026 only)
+1. [Title](URL) — Publication | Key finding | Published: [date]
+2. [Title](URL) — Publication | Key finding | Published: [date]
+3. [Title](URL) — Publication | Key finding | Published: [date]
 
-## 📊 Real Statistics Found
-- Stat 1 with source
-- Stat 2 with source
-- Stat 3 with source
+## 📊 Latest Statistics (2025–2026 data only)
+- Stat 1 — Source: [name] | Published: [date]
+- Stat 2 — Source: [name] | Published: [date]
+- Stat 3 — Source: [name] | Published: [date]
 
-## 🔍 Competing Content Landscape
-- Article angle 1 — gap we can exploit
-- Article angle 2 — gap we can exploit
+## 🗞️ Breaking Developments (last 90 days)
+- Development 1 — [Source](URL) | [date]
+- Development 2 — [Source](URL) | [date]
 
-## 💡 Content Opportunities
-(What unique angle or depth our post should own, 2–3 sentences)`;
+## 🔍 Current Content Landscape (what ranks now)
+- Top article angle 1 — gap we can exploit
+- Top article angle 2 — gap we can exploit
+
+## 💡 2026 Angle to Own
+(What timely, current angle our post should dominate — 2–3 sentences)`;
 }
 
 function veritasPrompt(q: string, draft: string, sources: string) {
-  return `You are REX VERITAS of the BlogForge Council — the uncompromising Truth Arbiter. Use web search to VERIFY the specific factual claims in this draft.
+  return `You are REX VERITAS of the BlogForge Council — the uncompromising Truth Arbiter. Today is March 2026. Use web search to VERIFY every factual claim — and flag anything that is from 2024 or earlier as outdated.
 
 Topic: "${q}"
 Draft to fact-check: ${draft.slice(0, 600)}
 Sources already found: ${sources.slice(0, 300)}
 
-Search the web to verify each specific claim — statistics, dates, named studies, attributed quotes, concrete assertions.
+CRITICAL RULES:
+- We are in 2026. Any stat, figure, or claim citing data from 2024 or earlier must be flagged as OUTDATED in the Outdated section.
+- Search for the current 2026 version of every outdated stat.
+- Verify each specific claim — statistics, market sizes, percentages, named studies, attributed quotes.
+- Confirm publication dates. A "2024 report" in 2026 is old news — find the 2025 or 2026 update.
 
 Format your response EXACTLY like this:
 
-[NARRATIVE]: (2 sentences in character — describe your interrogation of the evidence)
+[NARRATIVE]: (2 sentences in character — describe your 2026 fact-check interrogation)
 
 [TECHNICAL]:
-## ✅ Verified Claims
-- Claim — Source: [Name](URL) — Confidence: HIGH/MED
+## ✅ Verified Claims (with 2025–2026 sources)
+- Claim — Source: [Name](URL) — Published: [date] — Confidence: HIGH/MED
 
 ## ⚠️ Needs Citation
-- Claim — why it needs sourcing — suggested search
+- Claim — why it needs sourcing — suggested 2026 search
 
 ## ❌ Flagged / Incorrect
-- Claim — what is wrong — corrected version with source
+- Claim — what is wrong — corrected version with current source
 
-## 🔄 Outdated Information
-- Any claims that have changed recently — current status
+## 🔄 OUTDATED (2024 or earlier — must update)
+- Outdated claim — Current 2025/2026 status — Updated source: [Name](URL)
 
 ## Accuracy Score: (X/100)
 
 ## ✏️ Corrections for Curator
-(Specific line-by-line edit instructions)`;
+(Specific line-by-line edit instructions — replace all outdated stats with 2025/2026 versions)`;
 }
 
 function curatorPrompt(q: string, draft: string, sources: string, factcheck: string) {
@@ -183,7 +198,7 @@ Format your response EXACTLY like this:
 ---FINAL POST START---
 
 # (Final SEO-Optimised Title)
-**Meta:** (150 chars) | **Slug:** /blog/(url-slug) | **Read:** X min | **Updated:** ${new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+**Meta:** (150 chars) | **Slug:** /blog/(url-slug) | **Read:** X min | **Updated:** March 2026
 
 ---
 
@@ -460,7 +475,7 @@ export default function BlogForge() {
     setToolRoundsMap({ scriptor: 0, explorator: 0, veritas: 0, curator: 0 });
   }
 
-  const suggestions = ["AI in construction", "Cash flow management tips", "Hydrovac industry trends"];
+  const suggestions = ["AI latest medical advancements", "Cash flow management tips", "How do I build my business idea", "AI in construction"];
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg, color: C.text, fontFamily: "Georgia, serif" }}>

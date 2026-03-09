@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
 const MODEL = "claude-sonnet-4-20250514";
-const MAX_TOKENS = 2000;
+const MAX_TOKENS = 3000;
 const MAX_TOOL_ROUNDS = 8; // prevent infinite loops
 
 interface ContentBlock {
