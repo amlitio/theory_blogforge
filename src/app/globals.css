@@ -1,0 +1,8 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { background: #0a0a0f; color: #e2e2f0; font-family: Georgia, serif; }
+textarea:focus { outline: none; }
+button { transition: all 0.2s; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a12; }
+::-webkit-scrollbar-thumb { background: #2a2a4a; border-radius: 3px; }
